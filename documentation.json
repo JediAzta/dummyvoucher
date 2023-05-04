@@ -1,0 +1,112 @@
+{
+	"description": "This is a very simple documentation to call the API",
+	"example": "http://[api address]:8080/[endpoint]",
+	"version": "0.0.3",
+	"endpoints": [{
+			"endpoint": "/",
+			"method": "GET",
+			"description": "Test if the API alive "
+		},
+		{
+			"endpoint": "/docs",
+			"method": "GET",
+			"description": "this document "
+		},
+		{
+			"endpoint": "/daolpuElif",
+			"methods": [{
+				"methods": "POST",
+				"description": "Direct upload the file (JPG, GIF, PNG only) and return the result.  (For development only)",
+				"headers": {
+					"name": "key",
+					"value": "Serect key by the development environment."
+				},
+				"parameters": {
+					"parameter": "file",
+					"description": "file upload to the server"
+				},
+				"responses": [{
+					"status": 200,
+					"content": "OCR result in JSON format. Note: AI is not connected yet.  But it will return pass or failed result for each request"
+				}, {
+					"status": 400,
+					"content": "Error upload file / no key include"
+				}]
+			}]
+		},
+		{
+			"endpoint": "/download/<filename>",
+			"methods": [{
+				"methods": "GET",
+				"description": "Direct download the iamge file",
+				"headers": {
+					"name": "key",
+					"value": "Serect key by the development environment."
+				},
+				"parameters": {
+					"parameter": "filename",
+					"description": "file download from the server"
+				},
+				"responses": [{
+					"status": 200,
+					"content": "file download successfully"
+				}, {
+					"status": 404,
+					"content": "file not found"
+				}]
+			}]
+		},
+		{
+			"endpoint": "/voucher/<name>",
+			"methods": [{
+				"method": "GET",
+				"description": "Get the OCR result from the voucher ",
+				"headers": {
+					"name": "key",
+					"value": "Serect key by the development environment."
+				},
+				"parameters": {
+					"parameter": "name",
+					"description": "image file name locate at the server"
+				},
+				"responses": [{
+					"status": 200,
+					"content": "OCR result in JSON format. Note: AI is not connected yet.  But it will return pass or failed result for each request"
+				}, {
+					"status": 404,
+					"content": "voucher not found"
+				}]
+			}]
+		},
+		{
+			"endpoint": "/config",
+			"methods": [{
+				"method": "GET",
+				"description": "Get the image path of the voucher ",
+				"headers": {
+					"name": "key",
+					"value": "Serect key by the development environment."
+				},
+				"responses": [{
+					"status": 200,
+					"content": "Path of the voucher image to be stored"
+				}]
+			}, {
+				"method": "PUT",
+				"description": "Update the image path of the voucher.WARNING: DO NOT CHANGE THIS NOW or it is required to restart the server ",
+				"headers": {
+					"name": "key",
+					"value": "Serect key by the development environment."
+				},
+				"body": "JSON object with \"path\"as the key, value is the absolute path of the image at the server.",
+				"responses": [{
+					"status": 201,
+					"content": "Path of the voucher updated"
+				}, {
+					"status": 401,
+					"content": "Illedgal content found"
+				}]
+			}]
+		}
+	]
+}
